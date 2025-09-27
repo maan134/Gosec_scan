@@ -22,7 +22,14 @@ jobs:
         with:
           # we let the report trigger content trigger a failure using the GitHub Security features.
           args: '-no-fail -fmt sarif -out results.sarif ./...'
-    
+          
+      - name: Run Trivy filesystem scan (SARIF)
+        run: |
+          # trivy fs scans the workspace; output SARIF file
+          trivy fs --format sarif --output trivy-results.sarif .
+          echo "Trivy SARIF written to trivy-results.sarif"
+          continue-on-error: true 
+            
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
@@ -34,3 +41,4 @@ jobs:
           name: GoSec report
           path: |
             results.sarif
+            trivy-results.sarif
