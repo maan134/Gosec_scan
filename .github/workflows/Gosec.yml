@@ -25,11 +25,11 @@ jobs:
 
     - name: Run gosec scan (SARIF output)
       run: |
-        gosec -fmt sarif -out gosec-results.sarif ./...
+        gosec -no-fail -fmt sarif -out results.sarif ./...
         echo "SARIF written to gosec-results.sarif"
-      continue-on-error: true
-
-    - name: Upload SARIF to GitHub (optional, for Code Scanning UI)
-      uses: github/codeql-action/upload-sarif@v3
+      
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: gosec-results.sarif
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: gosec-results.sarif
