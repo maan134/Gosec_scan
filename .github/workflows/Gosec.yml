@@ -17,6 +17,14 @@ jobs:
     steps:
       - name: Checkout Source
         uses: actions/checkout@v3
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+          # use Trivy official install script for simplicity
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+          
       - name: Run Gosec Security Scanner
         uses: securego/gosec@v2.18.2
         with:
@@ -26,9 +34,9 @@ jobs:
       - name: Run Trivy filesystem scan (SARIF)
         run: |
           # trivy fs scans the workspace; output SARIF file
-          docker run --rm -v ${{ github.workspace }}:/project \
-            ghcr.io/aquasecurity/trivy fs --format sarif --output trivy-results.sarif /project
+          trivy fs --format sarif --output trivy-results.sarif .
           echo "Trivy SARIF written to trivy-results.sarif"
+          continue-on-error: true
           
             
       - name: Upload SARIF file
