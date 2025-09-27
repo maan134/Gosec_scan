@@ -43,7 +43,6 @@ jobs:
       # 5️⃣ Run GoSec scan (SARIF output)
       - name: Run GoSec Security Scanner
         run: |
-          cd Gosec_scan   # <-- your Go source folder
           go mod init sarif-challenge || true
           go mod tidy || true
           gosec -no-fail -verbose -fmt sarif -out ../results.sarif ./...
