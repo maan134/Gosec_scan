@@ -22,7 +22,7 @@ jobs:
 
     - name: Run gosec scan (SARIF output)
       run: |
-        gosec -fmt sarif -out gosec-results.sarif ./...
+        gosec -fmt sarif -out results.sarif ./...
         echo "SARIF written to results.sarif"
       continue-on-error: true
     
