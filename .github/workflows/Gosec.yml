@@ -36,7 +36,7 @@ jobs:
           # trivy fs scans the workspace; output SARIF file
           trivy fs --format sarif --output trivy-results.sarif .
           echo "Trivy SARIF written to trivy-results.sarif"
-          continue-on-error: true
+          
           
             
       - name: Upload SARIF file
