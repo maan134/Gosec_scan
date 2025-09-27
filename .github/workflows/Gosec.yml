@@ -27,7 +27,7 @@ jobs:
         run: |
           # trivy fs scans the workspace; output SARIF file
           docker run --rm -v ${{ github.workspace }}:/project \
-            ghcr.io/aquasecurity/trivy fs --format sarif --output trivy-results.sarif .
+            ghcr.io/aquasecurity/trivy fs --format sarif --output trivy-results.sarif /project
           echo "Trivy SARIF written to trivy-results.sarif"
           
             
