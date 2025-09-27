@@ -1,0 +1,26 @@
+name: GoSec Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run gosec analysis
+        uses: securego/gosec@v2.18.2
+        with:
+          args: '-fmt sarif -out results.sarif ./...'
+
+      - name: Upload SARIF report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
