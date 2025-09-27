@@ -1,4 +1,4 @@
-name: GoSec Scan
+name: GoSec Scan (challenge)
 
 on:
   push:
