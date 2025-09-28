@@ -57,12 +57,6 @@ jobs:
           name: Trivy report
           path: trivy-results.sarif
 
-      # 8️⃣ Upload GoSec SARIF to GitHub Code Scanning
-      - name: Upload GoSec SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: results.sarif
-
       # 9️⃣ Upload GoSec SARIF as artifact
       - name: Upload GoSec Report
         uses: actions/upload-artifact@v4
