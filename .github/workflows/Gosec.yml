@@ -36,13 +36,19 @@ jobs:
         with:
           # we let the report trigger content trigger a failure using the GitHub Security features.
           args: '-no-fail -verbose -fmt sarif -out results.sarif ./...'
-
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: results.sarif
+          
       # 4️⃣ Optional: Install Trivy
       - name: Install Trivy
         run: |
           sudo apt-get update -y
           sudo apt-get install -y wget apt-transport-https gnupg lsb-release
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+      
 
       # 6️⃣ Run Trivy filesystem scan (SARIF)
       - name: Run Trivy filesystem scan
