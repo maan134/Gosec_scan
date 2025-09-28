@@ -47,7 +47,7 @@ jobs:
         run: |
           go mod init sarif-challenge || true
           go mod tidy || true
-          gosec -no-fail -verbose -fmt sarif -out ../results.sarif .
+          gosec -no-fail -verbose -fmt sarif -out results.sarif .
 
       # 6️⃣ Run Trivy filesystem scan (SARIF)
       - name: Run Trivy filesystem scan
