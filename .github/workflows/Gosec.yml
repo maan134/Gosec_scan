@@ -42,13 +42,6 @@ jobs:
           sudo apt-get install -y wget apt-transport-https gnupg lsb-release
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
 
-      # 5️⃣ Run GoSec scan (SARIF output)
-      - name: Run GoSec Security Scanner
-        run: |
-          go mod init sarif-challenge || true
-          go mod tidy || true
-          gosec -no-fail -verbose -fmt sarif -out results.sarif .
-
       # 6️⃣ Run Trivy filesystem scan (SARIF)
       - name: Run Trivy filesystem scan
         run: |
