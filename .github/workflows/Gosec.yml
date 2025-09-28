@@ -34,11 +34,17 @@ jobs:
         with:
           # we let the report trigger content trigger a failure using the GitHub Security features.
           args: '-no-fail -verbose -fmt sarif -out results.sarif .'
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-        with:
+      #- name: Upload SARIF file
+       # uses: github/codeql-action/upload-sarif@v3
+        #with:
           # Path to SARIF file relative to the root of the repository
-          sarif_file: results.sarif
+         # sarif_file: results.sarif
+        # 9️⃣ Upload GoSec SARIF as artifact
+      - name: Upload GoSec Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: GoSec report
+          path: results.sarif
           
       # 4️⃣ Optional: Install Trivy
       - name: Install Trivy
@@ -61,9 +67,4 @@ jobs:
           name: Trivy report
           path: trivy-results.sarif
 
-      # 9️⃣ Upload GoSec SARIF as artifact
-      - name: Upload GoSec Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: GoSec report
-          path: results.sarif
+    
