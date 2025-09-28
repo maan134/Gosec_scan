@@ -33,7 +33,7 @@ jobs:
         uses: securego/gosec@v2.18.2
         with:
           # we let the report trigger content trigger a failure using the GitHub Security features.
-          args: '-no-fail -fmt sarif -out results.sarif ./...'
+          args: '-no-fail -verbose -fmt sarif -out results.sarif ./...'
 
       # 4️⃣ Optional: Install Trivy
       - name: Install Trivy
